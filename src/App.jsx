@@ -5,6 +5,45 @@ import { Post } from "./components/Post";
 import "./global.css";
 import styles from "./App.module.css";
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/diego3g.png",
+      name: "Diego Fernandes",
+      role: "CTO @Rocketseat",
+    },
+    content: [
+      { type: "paragraph", content: "Fala galeraa 👋" },
+      {
+        type: "paragraph",
+        content:
+          "Acabei de subir mais um projeto no meu portifólio. Eles podem ser acessados em",
+      },
+      { type: "link", content: "diego3g.io" },
+    ],
+    publishedAt: new Date("2024-10-28 10:13:30"),
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl: "https://avatars.githubusercontent.com/u/113481957?v=4",
+      name: "Gabriel Priego",
+      role: "Desenvolvedor",
+    },
+    content: [
+      { type: "paragraph", content: "Fala galeraa 👋" },
+      {
+        type: "paragraph",
+        content:
+          "Acabei de subir mais um projeto no meu portifólio. Eles podem ser acessados em",
+      },
+      { type: "link", content: "diego3g.io" },
+    ],
+    publishedAt: new Date("2024-10-17 08:43:30"),
+  },
+];
+
 function App() {
   return (
     <>
@@ -13,18 +52,15 @@ function App() {
       <div className={styles.wrapper}>
         <SideBar />
         <main>
-          <Post
-            author="Gabriel"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam expedita, numquam pariatur repellendus repellat ducimus eum a cumque facilis, earum esse reprehenderit. Autem laboriosam veniam libero aliquam repudiandae quod dolore?"
-          />
-          <Post
-            author="Gabriel"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam expedita, numquam pariatur repellendus repellat ducimus eum a cumque facilis, earum esse reprehenderit. Autem laboriosam veniam libero aliquam repudiandae quod dolore?"
-          />
-          <Post
-            author="Gabriel"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam expedita, numquam pariatur repellendus repellat ducimus eum a cumque facilis, earum esse reprehenderit. Autem laboriosam veniam libero aliquam repudiandae quod dolore?"
-          />
+          {posts.map((post) => {
+            return (
+              <Post
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            );
+          })}
         </main>
       </div>
     </>
