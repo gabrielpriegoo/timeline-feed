@@ -6,7 +6,7 @@ import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 
 export function Post({ author, publishedAt, content }) {
-  const [comments, setComments] = useState(["comentario 1"]);
+  const [comments, setComments] = useState([]);
   const [newCommentText, setNewCommentText] = useState("");
 
   const publishedDateFormatted = format(
@@ -29,8 +29,22 @@ export function Post({ author, publishedAt, content }) {
   }
 
   function handleNewCommentChange() {
+    event.target.setCustomValidity("");
     setNewCommentText(event.target.value);
   }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity("Esse campo e obrigatório");
+  }
+
+  function deleteComment(commentToDelete) {
+    const commentsWithoutDeletedOne = comments.filter((comment) => {
+      return comment !== commentToDelete;
+    });
+    setComments(commentsWithoutDeletedOne);
+  }
+
+  const isNewCommentEmpty = newCommentText.length === 0;
 
   return (
     <article className={styles.post}>
@@ -70,15 +84,25 @@ export function Post({ author, publishedAt, content }) {
         <textarea
           onChange={handleNewCommentChange}
           value={newCommentText}
+          onInvalid={handleNewCommentInvalid}
           placeholder="Deixe um comentário"
+          required
         />
 
         <footer>
-          <button type="submit">Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
 
         {comments.map((comment) => {
-          return <Comment content={comment} />;
+          return (
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={deleteComment}
+            />
+          );
         })}
       </form>
     </article>
