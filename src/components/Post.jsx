@@ -82,6 +82,7 @@ export function Post({ author, publishedAt, content }) {
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
         <textarea
+          name="comment"
           onChange={handleNewCommentChange}
           value={newCommentText}
           onInvalid={handleNewCommentInvalid}
